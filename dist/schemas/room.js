@@ -20,4 +20,4 @@ exports.default = _mongoose2.default.model('Room', new Schema({
   }],
   createdAt: Date,
   updatedAt: Date
-}));
+}), 'Rooms');

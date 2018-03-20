@@ -1,20 +1,4 @@
-.container {
-    width:100%;
-    padding: 30px;
-}
-
-.main-container {
-    display: flex;
-}.visualizer-container {
-    flex:5;
-    margin-left:30px;
-}
-
-#img-loading {
-    background-image: url('/public/assets/img/loading.gif');  
-}.filter-container {
-    flex:1;
-}.vis-table-header-cell-cell {
+.vis-table-header-cell-cell {
     flex: 1;
 }
 
@@ -54,4 +38,7 @@
 .vis-table-body {
     display: flex;
 }
-/*# sourceMappingURL=styles.css.map*/
+
+.vis-table-container {
+    padding: 15px;
+}

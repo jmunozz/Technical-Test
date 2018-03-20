@@ -18,8 +18,21 @@ export const RECEIVE_ROOMS = 'RECEIVE_ROOMS';
 export function receiveRooms(json) {
   return {
     type: RECEIVE_ROOMS,
-    status: json.status,
+    status: json.code,
     rooms: json.data,
+  };
+}
+
+/**
+ * Received bookings from fetch action
+ */
+export const RECEIVE_BOOKINGS = 'RECEIVE_BOOKINGS';
+export function receiveBookings(roomId, json) {
+  return {
+    type: RECEIVE_BOOKINGS,
+    status: json.code,
+    bookings: json.data,
+    roomId
   };
 }
 
@@ -31,6 +44,14 @@ export function updateFilters(filters) {
   return { type: UPDATE_FILTERS, filters };
 }
 
+/**
+ * Update room that is displayed in visualizer.
+ */
+export const UPDATE_ROOM_DISPLAYED = 'UPDATE_ROOM_DISPLAYED';
+export function updateRoomDisplayed(roomId) {
+  return { type: UPDATE_ROOM_DISPLAYED, roomId };
+}
+
 export function fetchRooms(filters) {
   return (dispatch) => {
     dispatch(requestRooms());
@@ -40,4 +61,12 @@ export function fetchRooms(filters) {
         dispatch(receiveRooms(json));
       });
   };
+}
+
+export function fecthBookings(roomId) {
+  return dispatch => fetch(`/api/rooms/${roomId}`)
+    .then(response => response.json())
+    .then((json) => {
+      dispatch(receiveBookings(roomId, json));
+    });
 }

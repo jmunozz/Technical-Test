@@ -20,9 +20,9 @@ var _webpackHotMiddleware = require('webpack-hot-middleware');
 
 var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-var _middlewares = require('../middlewares');
+var _logRequests = require('../middlewares/logRequests');
 
-var _middlewares2 = _interopRequireDefault(_middlewares);
+var _logRequests2 = _interopRequireDefault(_logRequests);
 
 var _logger = require('../libs/logger');
 
@@ -37,7 +37,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 
 var PUBLIC = _path2.default.resolve('./public');
-_logger2.default.info(PUBLIC);
 
 /**
  * In developement front-app must be delivered by webpack server middlewre. In prod, by a public folder.
@@ -53,7 +52,7 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Middlewares
  */
-app.use(_middlewares2.default.logRequests);
+app.use(_logRequests2.default);
 
 /**
  * Api Routes
@@ -64,7 +63,6 @@ app.use('/api', _routes2.default);
  * Front-end app delivering.
  */
 app.get('*', function (req, res) {
-  _logger2.default.info('ici');
   res.sendFile(_path2.default.join(PUBLIC, 'index.html'));
 });
 

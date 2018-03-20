@@ -8,17 +8,21 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
 var _rooms = require('./rooms');
 
 var rooms = _interopRequireWildcard(_rooms);
 
-var _logger = require('../libs/logger');
+var _errors = require('../middlewares/errors');
 
-var _logger2 = _interopRequireDefault(_logger);
+var _errors2 = _interopRequireDefault(_errors);
 
-var _responses = require('../libs/responses');
+var _logRequests = require('../middlewares/logRequests');
 
-var responses = _interopRequireWildcard(_responses);
+var _logRequests2 = _interopRequireDefault(_logRequests);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -31,20 +35,16 @@ var router = _express2.default.Router();
 ** Rooms
 */
 
-// Print requests to API
-router.use(function (req, res, next) {
-  _logger2.default.info('router', req.method, req.originalUrl);
-  next();
-});
+// Middlewares
+router.use(_logRequests2.default);
+router.use(_bodyParser2.default.json());
 
 // Routes
+router.get('/rooms/:id', rooms.getBooking);
+router.post('/rooms/:id', rooms.postBooking);
 router.get('/rooms', rooms.getAll);
 
 // Errors
-router.use(function (error, req, res, next) {
-  if (res.headersSent) return next(error);
-  _logger2.default.error('Handled: ' + error.name, error);
-  return responses.sendError(res, error);
-});
+router.use(_errors2.default);
 
 exports.default = router;

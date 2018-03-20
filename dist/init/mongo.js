@@ -10,9 +10,6 @@ var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import * as schemas from '../schemas';
-
-
 /*
 ** Initialize mongo and mongoose
 */
@@ -33,9 +30,3 @@ process.on('SIGINT', function () {
     process.exit(1);
   });
 });
-
-// Models
-// Object.keys(schemas).forEach((key) => {
-//   const schema = mongoose.Schema(schemas[key]);
-//   mongoose.model(key, schema);
-// });

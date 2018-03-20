@@ -9,6 +9,7 @@ import * as API from './api';
 const initialState = {
   isNewModalOpen: false,
   rooms: null,
+  roomDisplayed: null,
   isErrorModalOpen: false,
   errorModalMessage: '',
   filters: {
@@ -31,8 +32,12 @@ export default function reducer(state = initialState, action) {
       return MODALS.toggleErrorModal(state);
     case ACTIONS.RECEIVE_ROOMS:
       return API.receiveRooms(state, action);
+    case ACTIONS.RECEIVE_BOOKINGS:
+      return API.receiveBookings(state, action);
     case ACTIONS.UPDATE_FILTERS:
       return API.updateFilters(state, action);
+    case ACTIONS.UPDATE_ROOM_DISPLAYED:
+      return API.updateRoomDisplayed(state, action);
     default:
       return state;
   }
