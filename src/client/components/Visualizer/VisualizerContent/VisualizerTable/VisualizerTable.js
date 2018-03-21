@@ -13,8 +13,10 @@ const VisualizerTable = ({ bookings }) => {
 
   return (
     <div className="vis-table-container">
-      <VisualizerTableHeader day={day.clone()} />
-      <VisualizerTableBody day={day.clone()} bookings={bookings} />
+      <div className="vis-table">
+        <VisualizerTableHeader day={day.clone()} />
+        <VisualizerTableBody day={day.clone()} bookings={bookings} />
+      </div>
     </div>
   );
 };

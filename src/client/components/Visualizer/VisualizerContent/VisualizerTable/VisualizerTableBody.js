@@ -18,7 +18,8 @@ const VisualizerTableBody = ({ bookings, day }) => {
     });
   });
 
-  const columns = days.map(d => <VisualizerColumn bookings={d} />);
+  const lastOne = days.length - 1;
+  const columns = days.map((d, i) => <VisualizerColumn bookings={d} className={(i === lastOne) ? 'last-right' : ''} />);
   columns.unshift(<VisualizerColumn type="label" />);
   return (<div className="vis-table-body">{columns}</div>);
 };
