@@ -97,3 +97,15 @@
     color: white;
     display: block;
 }
+
+.vis-table-nav {
+    display: flex;
+}
+
+.vis-table-nav div {
+    flex:1;
+    text-align: center;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

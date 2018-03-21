@@ -65,24 +65,33 @@ export function postBooking(req, res, next) {
       }
 
       booking.set('from', moment(booking.get('from')));
-      booking.set('to', moment(booking.get('to')).subtract(1, 'seconds'));
+      booking.set('to', moment(booking.get('to')));
+      const _to = moment(booking.get('to')).clone().subtract(1, 'seconds');
+      log.info(_to, booking.get('from'));
 
       return Booking.find({
+        roomId: id,
         $or: [{
           from: {
             $gte: booking.get('from'),
-            $lte: booking.get('to'),
+            $lt: booking.get('to'),
           },
         }, {
           to: {
-            $gte: booking.get('from'),
+            $gt: booking.get('from'),
             $lte: booking.get('to'),
-          }
+          },
+        }, {
+          $and: [
+            { from: { $lt: booking.get('from') } },
+            { to: { $gt: booking.get('to') } },
+          ]
         }]
       });
     })
     // Check Booking is possible.
     .then((registeredBookings) => {
+      log.info('reg', registeredBookings);
       if (registeredBookings.length) {
         throw new ValidationError('This slot is at least already partially booked');
       }

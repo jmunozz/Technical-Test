@@ -8,7 +8,7 @@ import VisualizerTable from './VisualizerTable/VisualizerTable';
 import './VisualizerContent.css';
 
 
-const VisualizerContent = ({ dispatch, bookings, roomDisplayed }) => {
+const VisualizerContent = ({ dispatch, bookings, roomDisplayed, day }) => {
   // Room to display is not in cache, fetch bookings.
   if (!bookings || !bookings[roomDisplayed]) {
     dispatch(fecthBookings(roomDisplayed));
@@ -16,7 +16,7 @@ const VisualizerContent = ({ dispatch, bookings, roomDisplayed }) => {
   }
   const _bookings = bookings[roomDisplayed];
   return (
-    <VisualizerTable bookings={_bookings} />
+    <VisualizerTable bookings={_bookings} day={day} dispatch={dispatch} />
   );
 };
 
@@ -24,6 +24,7 @@ VisualizerContent.propTypes = {
   dispatch: PropTypes.func.isRequired,
   bookings: PropTypes.array.isRequired,
   roomDisplayed: PropTypes.string.isRequired,
+  day: PropTypes.object,
 };
 
 export default VisualizerContent;

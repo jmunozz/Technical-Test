@@ -1,16 +1,14 @@
 import fetch from 'cross-fetch';
 
 /**
- * Fetch all rooms or filtered rooms.
+ * Flush all rooms current caching.
 */
-export const REQUEST_ROOMS = 'REQUEST_ROOMS';
-export function requestRooms(filters) {
+export const FLUSH_ROOMS = 'FLUSH_ROOMS';
+export function flushRooms() {
   return {
-    type: REQUEST_ROOMS,
-    filters
+    type: FLUSH_ROOMS,
   };
 }
-
 /**
  * Received rooms from fetch action.
  */
@@ -22,7 +20,6 @@ export function receiveRooms(json) {
     rooms: json.data,
   };
 }
-
 /**
  * Received bookings from fetch action
  */
@@ -35,7 +32,16 @@ export function receiveBookings(roomId, json) {
     roomId
   };
 }
-
+/**
+ * Receive response from posted booking
+ */
+export const HAS_POSTED_BOOKING = 'HAS_POSTED_BOOKING';
+export function hasPostedBooking(json) {
+  return {
+    type: HAS_POSTED_BOOKING,
+    status: json.code
+  };
+}
 /**
  * Update filters for fetch room action.
  */
@@ -43,7 +49,6 @@ export const UPDATE_FILTERS = 'UPDATE_FILTERS';
 export function updateFilters(filters) {
   return { type: UPDATE_FILTERS, filters };
 }
-
 /**
  * Update room that is displayed in visualizer.
  */
@@ -51,18 +56,19 @@ export const UPDATE_ROOM_DISPLAYED = 'UPDATE_ROOM_DISPLAYED';
 export function updateRoomDisplayed(roomId) {
   return { type: UPDATE_ROOM_DISPLAYED, roomId };
 }
-
+/**
+ * Get all rooms depending on filters.
+ */
 export function fetchRooms(filters) {
-  return (dispatch) => {
-    dispatch(requestRooms());
-    return fetch(`/api/rooms${filters}`)
-      .then(response => response.json())
-      .then((json) => {
-        dispatch(receiveRooms(json));
-      });
-  };
+  return dispatch => fetch(`/api/rooms${filters}`)
+    .then(response => response.json())
+    .then((json) => {
+      dispatch(receiveRooms(json));
+    });
 }
-
+/**
+ * get All bookings for one room.
+ */
 export function fecthBookings(roomId) {
   return dispatch => fetch(`/api/rooms/${roomId}`)
     .then(response => response.json())

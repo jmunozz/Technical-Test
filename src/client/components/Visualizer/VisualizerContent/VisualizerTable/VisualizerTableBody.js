@@ -12,7 +12,7 @@ const VisualizerTableBody = ({ bookings, day }) => {
     const start = moment(booking.from);
     days.forEach((val, index) => {
       const _day = day.clone();
-      if (start.isSame(_day.day(index + 1), 'day')) {
+      if (start.isSame(_day.isoWeekday(index + 1), 'day')) {
         days[index].push(booking);
       }
     });

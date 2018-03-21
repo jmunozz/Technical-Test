@@ -1,6 +1,9 @@
+import moment from 'moment';
+
 import ACTIONS from '../actions';
 import * as MODALS from './modals';
 import * as API from './api';
+import * as GENERAL from './general';
 
 /*
 ** Initial state
@@ -11,6 +14,8 @@ const initialState = {
   rooms: null,
   roomDisplayed: null,
   isErrorModalOpen: false,
+  isAlertOn: false,
+  alertMessage: '',
   errorModalMessage: '',
   filters: {
     capacity: 1,
@@ -18,7 +23,8 @@ const initialState = {
       TV: false,
       'Retro Projecteur': false,
     }
-  }
+  },
+  day: moment(),
 };
 
 /*
@@ -38,6 +44,14 @@ export default function reducer(state = initialState, action) {
       return API.updateFilters(state, action);
     case ACTIONS.UPDATE_ROOM_DISPLAYED:
       return API.updateRoomDisplayed(state, action);
+    case ACTIONS.UPDATE_DAY:
+      return GENERAL.updateDay(state, action);
+    case ACTIONS.HAS_POSTED_BOOKING:
+      return API.hasPostedBooking(state, action);
+    case ACTIONS.TOGGLE_ALERT:
+      return GENERAL.toggleAlert(state);
+    case ACTIONS.FLUSH_ROOMS:
+      return API.flushRooms(state);
     default:
       return state;
   }

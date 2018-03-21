@@ -7,7 +7,7 @@ import VisualizerContent from './VisualizerContent/VisualizerContent';
 
 import './Visualizer.css';
 
-const Visualizer = ({ dispatch, rooms, roomDisplayed, bookings }) => {
+const Visualizer = ({ dispatch, rooms, roomDisplayed, bookings, day }) => {
   const a = '';
   return (
     <div className="visualizer-container">
@@ -22,6 +22,7 @@ const Visualizer = ({ dispatch, rooms, roomDisplayed, bookings }) => {
         roomDisplayed={roomDisplayed}
         bookings={bookings}
         dispatch={dispatch}
+        day={day}
       />
     </div>
   );
@@ -31,13 +32,15 @@ const mapStateToProps = state => ({
   rooms: state.rooms,
   roomDisplayed: state.roomDisplayed,
   bookings: state.bookings,
+  day: state.day,
 });
 
 Visualizer.propTypes = {
   rooms: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   roomDisplayed: PropTypes.string.isRequired,
-  bookings: PropTypes.array
+  bookings: PropTypes.array,
+  day: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(Visualizer);
