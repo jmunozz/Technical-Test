@@ -6,7 +6,7 @@ import moment from 'moment';
 import VisualizerColumn from './VisualizerColumn';
 
 const VisualizerTableBody = ({ bookings, day }) => {
-  const days = Array(7).fill([]);
+  const days = Array(7).fill(undefined).map(() => []);
 
   bookings.forEach((booking) => {
     const start = moment(booking.from);
