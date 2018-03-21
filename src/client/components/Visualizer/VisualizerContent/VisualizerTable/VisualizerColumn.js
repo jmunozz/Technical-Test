@@ -10,7 +10,7 @@ const VisualizerColumn = ({ bookings, type, className }) => {
   if (type === 'label') {
     let hours = Array.from(new Array(16), (val, index) => index + 6);
     hours = hours.map((hour, i) => <div className={`vis-table-body-column-cell vis-table-body-column-cell-header ${(i === 15) ? 'last-bottom' : ''}`} ><span>{`${hour}:00`}</span></div>);
-    return (<div className={`vis-table-body-column ${className}`}>{hours}</div>);
+    return (<div className="vis-table-body-column vis-table-body-column-header">{hours}</div>);
   }
   console.log('bookings', bookings);
   let cells = Array(16).fill(undefined);

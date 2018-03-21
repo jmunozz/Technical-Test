@@ -1,7 +1,14 @@
 .vis-table-header-cell {
     flex: 1;
     background-color: #F5F5F5;
-
+    height:45px;
+    text-align: center;
+    font-size: 14px;
+    padding:2px;
+    font-weight: 300;
+}
+.vis-table-header-cell span {
+    display: block;
 }
 
 .vis-table {
@@ -20,6 +27,13 @@
     flex: 1;
     position:relative;
     border-right: solid #CCCCCC .2px;
+}
+
+.vis-table-body-column-header {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+    border-right: none;
 }
 
 .vis-table-body-column-cell {
