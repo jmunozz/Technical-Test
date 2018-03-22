@@ -14,7 +14,7 @@ const VisualizerNav = ({ dispatch, rooms, roomDisplayed }) => {
 
   const roomTabs = [];
   rooms.forEach((room) => {
-    roomTabs.push(<NavItem eventKey={room._id} onSelect={handleSelect}>{room.name}</NavItem>);
+    roomTabs.push(<NavItem key={room._id} eventKey={room._id} onSelect={handleSelect}>{room.name}</NavItem>);
   });
   return (
     <Nav bsStyle="tabs" activeKey={roomDisplayed}>

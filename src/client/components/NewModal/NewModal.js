@@ -105,8 +105,6 @@ class NewModal extends React.Component {
       description,
       name,
     };
-    console.log('booking', newBooking);
-    console.log(this.state.roomId);
     return fetch(`/api/rooms/${roomId}`, {
       headers: {
         'Content-Type': 'application/json'
@@ -148,7 +146,7 @@ class NewModal extends React.Component {
                 placeholder="select a room"
                 onChange={this.handleChange}
               >
-                {this.props.rooms.map(room => (<option value={room._id}>{room.name}</option>))}
+                {this.props.rooms.map(room => (<option key={room._id} value={room._id}>{room.name}</option>))}
               </FormControl>
               <ControlLabel>Name of the event</ControlLabel>
               <FormControl
@@ -179,7 +177,7 @@ class NewModal extends React.Component {
                 placeholder="select start time"
                 onChange={this.handleFrom}
               >
-                {this.state.timeRangeFrom.map(time => (<option value={time}>{`${Math.trunc(time / 60)}:${(time % 60) / 10}0`}</option>))}
+                {this.state.timeRangeFrom.map(time => (<option key={time} value={time}>{`${Math.trunc(time / 60)}:${(time % 60) / 10}0`}</option>))}
               </FormControl>
               <ControlLabel>To</ControlLabel>
               <FormControl
@@ -189,7 +187,7 @@ class NewModal extends React.Component {
                 placeholder="select end time"
                 onChange={this.handleChange}
               >
-                {this.state.timeRangeTo.map(time => (<option value={time}>{`${Math.trunc(time / 60)}:${(time % 60) / 10}0`}</option>))}
+                {this.state.timeRangeTo.map(time => (<option key={time} value={time}>{`${Math.trunc(time / 60)}:${(time % 60) / 10}0`}</option>))}
               </FormControl>
             </FormGroup>
           </form>

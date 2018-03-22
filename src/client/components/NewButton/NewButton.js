@@ -22,7 +22,7 @@ const NewButton = ({ dispatch, disabled }) => {
 
 NewButton.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default connect()(NewButton);

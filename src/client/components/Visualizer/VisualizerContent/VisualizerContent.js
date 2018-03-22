@@ -22,9 +22,9 @@ const VisualizerContent = ({ dispatch, bookings, roomDisplayed, day }) => {
 
 VisualizerContent.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  bookings: PropTypes.array.isRequired,
-  roomDisplayed: PropTypes.string.isRequired,
-  day: PropTypes.object,
+  bookings: PropTypes.object,
+  roomDisplayed: PropTypes.string,
+  day: PropTypes.object.isRequired,
 };
 
 export default VisualizerContent;

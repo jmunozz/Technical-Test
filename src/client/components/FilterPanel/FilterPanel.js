@@ -25,7 +25,7 @@ const FilterPanel = ({ filters, dispatch }) => {
   const { equipements } = filters;
   const equipementsFilter = [];
   Object.keys(equipements).forEach((equ) => {
-    equipementsFilter.push(<Checkbox id={equ} name={equ} onChange={handleChange} checked={equipements[equ]}>{equ}</Checkbox>);
+    equipementsFilter.push(<Checkbox id={equ} key={equ} name={equ} onChange={handleChange} checked={equipements[equ]}>{equ}</Checkbox>);
   });
 
 
@@ -47,7 +47,7 @@ const FilterPanel = ({ filters, dispatch }) => {
         </form>
       </Panel.Body>
     </Panel>
-          </div>);
+  </div>);
 };
 
 const mapStateToProps = state => ({

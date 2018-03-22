@@ -35,7 +35,7 @@ const App = ({ rooms, dispatch, isAlertOn }) => {
     <div className="main-container">
       <div style={{ flex: 1 }}>
         <FilterPanel />
-        <NewButton disabled={rooms && rooms.length} />
+        <NewButton disabled={!!(rooms && rooms.length)} />
       </div>
       <Visualizer />
     </div>
@@ -49,8 +49,8 @@ const mapStateToProps = state => ({
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  isAlertOn: PropTypes.bool.isRequired,
   rooms: PropTypes.array,
-  isAlertOn: PropTypes.bool,
 };
 
 export default connect(mapStateToProps)(App);
