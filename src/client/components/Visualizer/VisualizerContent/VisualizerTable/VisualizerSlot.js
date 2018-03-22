@@ -25,7 +25,7 @@ const VisualizerSlot = ({ booking }) => {
     >
       <div style={style} className="vis-table-slot">
         <div>
-          <span style={{ fontSize: '16px' }}>{booking.name}</span>
+          {time > 60 && <span style={{ fontSize: '16px' }}>{booking.name}</span>}
           <span style={{ fontSize: '10px' }}>{`${moment(booking.from).format('HH:mm')} - ${moment(booking.to).format('HH:mm')}`}</span>
         </div>
       </div>

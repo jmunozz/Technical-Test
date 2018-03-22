@@ -9,6 +9,7 @@
     "build-server": "babel src/server -d dist ",
     "build-all": "run-p build-server build-client",
     "start": "npm run build-all && node dist/index.js",
+    "start-server": "npm run build-all && pm2 dist/index.js",
     "start-dev": "NODE_ENV=development nodemon --watch src/server --exec babel-node src/server/index.js"
   },
   "repository": {

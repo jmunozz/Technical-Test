@@ -52,7 +52,8 @@ export function getBooking(req, res, next) {
 export function postBooking(req, res, next) {
   const { id } = req.params;
   const booking = new Booking({ ...req.body, ...{ roomId: id } });
-
+  booking.set('from', moment(booking.get('from')));
+  booking.set('to', moment(booking.get('to')));
 
   return booking.validate()
     // Check validation rules are ok.
@@ -63,11 +64,12 @@ export function postBooking(req, res, next) {
       if (!roomsIds.includes(id)) {
         throw new ValidationError('room id does not exist');
       }
-
-      booking.set('from', moment(booking.get('from')));
-      booking.set('to', moment(booking.get('to')));
-      const _to = moment(booking.get('to')).clone().subtract(1, 'seconds');
-      log.info(_to, booking.get('from'));
+      if (moment(booking.get('to')).diff(booking.get('from'), 'minutes') > 120) {
+        throw new ValidationError('Slot cannot exceed two hours');
+      }
+      if (moment(booking.get('from')).isBefore(moment())) {
+        throw new ValidationError('Passed slots cannot be booked');
+      }
 
       return Booking.find({
         roomId: id,
@@ -91,16 +93,10 @@ export function postBooking(req, res, next) {
     })
     // Check Booking is possible.
     .then((registeredBookings) => {
-      log.info('reg', registeredBookings);
       if (registeredBookings.length) {
         throw new ValidationError('This slot is at least already partially booked');
       }
-      if (moment(booking.get('to')).diff(booking.get('from'), 'minutes') > 120) {
-        throw new ValidationError('Slot cannot exceed two hours');
-      }
-      if (moment(booking.get('from')).isBefore(moment())) {
-        throw new ValidationError('Passed slots cannot be booked');
-      }
+
       return booking.save();
     })
     .then(() => {

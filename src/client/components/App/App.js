@@ -33,11 +33,13 @@ const App = ({ rooms, dispatch, isAlertOn }) => {
     <ErrorModal />
     {rooms && <NewModal />}
     <div className="main-container">
-      <FilterPanel />
+      <div style={{ flex: 1 }}>
+        <FilterPanel />
+        <NewButton disabled={rooms && rooms.length} />
+      </div>
       <Visualizer />
     </div>
-    <NewButton disabled={rooms && rooms.length} />
-  </div>);
+          </div>);
 };
 
 const mapStateToProps = state => ({
